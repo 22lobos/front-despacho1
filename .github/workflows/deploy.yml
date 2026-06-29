@@ -42,7 +42,7 @@ jobs:
 
       - name: Descargar task definition
         run: |
-          aws ecs describe-task-definition --task-definition front-despacho-task --query taskDefinition > task-definition.json
+          aws ecs describe-task-definition --task-definition front-despacho-task --query taskDefinition | python3 -c "import json,sys; d=json.load(sys.stdin); [d.pop(k,None) for k in ['taskDefinitionArn','revision','status','requiresAttributes','placementConstraints','compatibilities','registeredAt','registeredBy','enableFaultInjection']]; print(json.dumps(d))" > task-definition.json
 
       - name: Actualizar imagen en task definition
         id: task-def
