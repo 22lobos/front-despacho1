@@ -53,9 +53,9 @@ jobs:
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy a ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+          service: front-despacho-service
+          cluster: innovatech-cluster
+          wait-for-service-stability: false
